@@ -23,7 +23,7 @@ export class SqliteDatabase implements Database {
   }
 
   run(sql: string) {
-    this.logger.log(`Executing ${sql}`);
+    this.logger.log(`Executing ${sql}`, 'verbose');
     this.db.run(sql);
   }
 }
