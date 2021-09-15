@@ -9,9 +9,15 @@ export class WinstonLogger implements Logger {
   constructor() {
     this.logger = winston.createLogger({
       transports: [
-        new winston.transports.Console({ format: winston.format.simple() })
+        new winston.transports.File({ filename: 'errors.log', level: 'error' })
       ]
     });
+
+    if (process.env.NODE_ENV !== 'production') {
+      this.logger.add(
+        new winston.transports.Console({ format: winston.format.simple() })
+      );
+    }
   }
 
   log(msg: string) {
