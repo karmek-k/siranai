@@ -1,5 +1,6 @@
 const types = {
-  database: Symbol('Database')
+  database: Symbol('Database'),
+  discordClient: Symbol('DiscordClient')
 };
 
 export default types;
