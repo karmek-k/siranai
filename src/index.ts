@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
+import 'reflect-metadata';
 
 import { DiscordClient } from './container/interfaces';
 import container from './container/inversify.config';
