@@ -1,10 +1,11 @@
-export interface Database {}
+export interface Database {
+  run(sql: string): void;
+}
 
 export interface DiscordClient {
   login(token: string): void;
 }
 
 export interface Logger {
-  log(msg: string): void;
-  error(msg: string): void;
+  log(msg: string, level?: string): void;
 }

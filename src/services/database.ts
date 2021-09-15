@@ -14,11 +14,16 @@ export class SqliteDatabase implements Database {
     if (!filename) {
       const msg = 'No DATABASE_FILENAME specified.';
 
-      this.logger.error(msg);
-      throw new Error();
+      this.logger.log(msg, 'error');
+      throw new Error(msg);
     }
 
     this.db = new verbose.Database(filename);
     this.logger.log('Database connection established');
+  }
+
+  run(sql: string) {
+    this.logger.log(`Executing ${sql}`, 'verbose');
+    this.db.run(sql);
   }
 }
