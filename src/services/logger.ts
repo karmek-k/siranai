@@ -20,11 +20,7 @@ export class WinstonLogger implements Logger {
     }
   }
 
-  log(msg: string) {
-    this.logger.log({ level: 'info', message: msg });
-  }
-
-  error(msg: string) {
-    this.logger.log({ level: 'error', message: msg });
+  log(msg: string, level: string = 'info') {
+    this.logger.log({ level, message: msg });
   }
 }
