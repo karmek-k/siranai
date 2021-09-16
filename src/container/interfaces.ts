@@ -9,7 +9,7 @@ export interface DiscordClient {
 }
 
 export interface Logger {
-  log(msg: string, level?: string): void;
+  log(msg: any, level?: string): void;
 }
 
 export interface CommandHandler {
