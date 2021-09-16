@@ -12,15 +12,18 @@ export class DefaultDiscordClient implements DiscordClient {
     @inject(types.commandHandler) private handler: CommandHandler
   ) {
     this.client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+  }
 
-    this.client.on('interactionCreate', handler.handle);
+  login(token: string) {
+    // simply passing handler.handle doesn't work for some reason
+    this.client.on('interactionCreate', async interaction =>
+      this.handler.handle(interaction)
+    );
 
     this.client.once('ready', () => {
       this.logger.log('Bot is ready');
     });
-  }
 
-  login(token: string) {
     this.client.login(token);
   }
 }
