@@ -1,7 +1,14 @@
-import { Client, Intents } from 'discord.js';
+import { Client, Intents, Collection } from 'discord.js';
 import { inject, injectable } from 'inversify';
-import { CommandHandler, DiscordClient, Logger } from '../container/interfaces';
+import {
+  CommandExecutor,
+  CommandHandler,
+  DiscordClient,
+  Logger
+} from '../container/interfaces';
 import types from '../container/types';
+import discoverCommands from '../utils/discoverCommands';
+import { Command } from '../utils/Command';
 
 @injectable()
 export class DefaultDiscordClient implements DiscordClient {
@@ -9,9 +16,12 @@ export class DefaultDiscordClient implements DiscordClient {
 
   constructor(
     @inject(types.logger) private logger: Logger,
-    @inject(types.commandHandler) private handler: CommandHandler
+    @inject(types.commandHandler) private handler: CommandHandler,
+    @inject(types.commandExecutor) private executor: CommandExecutor
   ) {
     this.client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+
+    discoverCommands().forEach(c => this.executor.addCommand(c));
   }
 
   login(token: string) {
