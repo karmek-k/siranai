@@ -12,8 +12,8 @@ export class DiscordCommandHandler implements CommandHandler {
       return;
     }
 
-    const { commandName } = interaction;
+    const { commandName, user } = interaction;
 
-    this.logger.log(`Executing command ${commandName}`);
+    this.logger.log(`${user.username} invoked command /${commandName}`);
   }
 }
